@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tugas Akhir</title>
+    <title>{{ $title }}</title>
     <link rel="stylesheet" href="node_modules/aos/dist/aos.css" />
     <script src="node_modules/aos/dist/aos.js"></script>
     <link rel="stylesheet" href="assets/css/style.css" />
