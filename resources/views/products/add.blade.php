@@ -1,7 +1,7 @@
 @extends('frame.main')
 @section('content')
     <h1>Tambah Produk</h1>
-    <form action="/products" method="post">
+    <form action="/products" method="post" enctype="multipart/form-data">
         @csrf
         @method('POST')
         <div class="row">
@@ -33,6 +33,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="mb-3">
+                    <label for="photo" class="form-label">Foto Produk</label>
+                    <input class="form-control" type="file" id="photo" name="photo">
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Deskripsi</label>
