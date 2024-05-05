@@ -12,4 +12,5 @@ Route::controller(HomeController::class)->group(function () {
 
 Route::get('/manage', [DashboardController::class, 'index']);
 Route::resource('/products', ProductsController::class);
+Route::post('/check', [ProductsController::class, 'check']);
 Route::get('/about', [AboutController::class, 'index']);

@@ -7,7 +7,7 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
-                <a class="nav-link {{ Request::is('products') ? 'active disabled ' : '' }}" href="/products">
+                <a class="nav-link {{ Request::is('products*') ? 'active disabled ' : '' }}" href="/products">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-utensils"></i></div>
                     Product
                 </a>

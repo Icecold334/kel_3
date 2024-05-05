@@ -7303,7 +7303,7 @@ textarea.form-control-lg {
   box-shadow: var(--bs-box-shadow-sm) !important;
 }
 
-.shadow-lg, .img-thumbnail, .card {
+.shadow-lg, .img-thumbnail, .card, input {
   box-shadow: var(--bs-box-shadow-lg) !important;
 }
 
