@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-gradient bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="index.html"><img class="rounded-circle me-1" src="assets/img/logo.jpg" alt="Bootstrap"
+        <a class="navbar-brand" href="/"><img class="rounded-circle me-1" src="assets/img/logo.jpg" alt="Bootstrap"
                 width="60" height="60" />
             <span class="nav-hover h5">Kobessah Kopi</span>
         </a>
@@ -14,7 +14,7 @@
                     <a class="nav-link nav-hover" href="menu.html">Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-hover" href="about.html">Tentang Kami</a>
+                    <a class="nav-link nav-hover" href="/about">Tentang Kami</a>
                 </li>
             </ul>
             <div class="d-flex d-none">
