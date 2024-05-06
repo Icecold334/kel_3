@@ -36,7 +36,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="photo" class="form-label">Foto Produk</label>
-                    <input class="form-control" type="file" id="photo" name="photo">
+                    <div id="imagePreview" class="col-6 mb-3"></div>
+                    <input class="form-control" type="file" id="photo" onchange="validate('photo')" name="photo">
+                    <div class="valid-feedback">
+                        Input berhasil divalidasi.
+                    </div>
+                    <div class="invalid-feedback" id="priceerror">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Deskripsi</label>
@@ -49,4 +56,19 @@
             </div>
         </div>
     </form>
+    @push('script')
+        <script>
+            $('#photo').change(function() {
+                var file = this.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        $('#imagePreview').html('<img width="100%" src="' + event.target.result +
+                            '" class="rounded-2 shadow-lg">');
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        </script>
+    @endpush
 @endsection

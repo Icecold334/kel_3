@@ -37,10 +37,12 @@ class ProductsController extends Controller
      */
     public function store(StoreProductsRequest $request)
     {
-        $name = $request->name;
-        $price = $request->price;
-        Products::create(['name' => $name, 'price' => $price]);
-        return redirect()->route('products.index')->with('success', "Produk $name berhasil ditambahkan");
+        $file = $request->photo->store('products-img');
+        dd($file);
+        // $name = $request->name;
+        // $price = $request->price;
+        // Products::create(['name' => $name, 'price' => $price]);
+        // return redirect()->route('products.index')->with('success', "Produk $name berhasil ditambahkan");
     }
 
     /**
@@ -55,7 +57,7 @@ class ProductsController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Products $products)
-    {
+    {;
         return 'oke';
     }
 
@@ -76,8 +78,16 @@ class ProductsController extends Controller
     }
     public function check(Request $request)
     {
-        $form = $request->keys()[0];
-        $args = $form == 'name' ? 'required' : 'required|integer';
+        // $form = $request->keys()[0];
+        $form = $request->keys();
+        return response()->json(['success' => $form]);
+        if ($form == 'name') {
+            $args = 'required';
+        } elseif ($form == 'price') {
+            $args = 'required|integer';
+        } elseif ($form == 'photo') {
+            $args = 'file|mimes:jpeg,png,jpg,gif|max:2048';
+        }
         $validate = $request->validate([
             $form => $args
         ]);

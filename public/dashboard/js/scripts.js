@@ -60,13 +60,16 @@ function validate(data) {
         },
         data: form,
         success: function (result) {
+            console.log(result);
             $('input[name="' + data + '"]').removeClass("is-invalid");
             $('input[name="' + data + '"]').addClass("is-valid");
             valid();
         },
         error: function (xhr, status, error) {
+            console.log(xhr, status, error);
             // Handle error response
             let errors = xhr.responseJSON.errors;
+
             // Display validation errors to the user
             $('input[name="' + data + '"]').removeClass("is-valid");
             $('input[name="' + data + '"]').addClass("is-invalid");
