@@ -6,6 +6,7 @@ use App\Models\Products;
 use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
@@ -39,40 +40,70 @@ class ProductsController extends Controller
     {
         $name = $request->name;
         $price = $request->price;
-        Products::create(['name' => $name, 'price' => $price]);
+        $description = $request->description;
+        $photo = $request->file('photo') ? $request->file('photo')->store('public/products-img') : 'default.jpg';
+        Products::create(['name' => $name, 'price' => $price, 'img' => str_replace('public/products-img/', '', $photo), 'description' => $description]);
         return redirect()->route('products.index')->with('success', "Produk $name berhasil ditambahkan");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Products $products)
+    public function show(Products $products, $id)
     {
-        //
+        $data = [
+            'title' => $products->all()->find($id)->name,
+            'data' => $products->all()->find($id)
+        ];
+        return view('products.show', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Products $products)
+    public function edit(Products $products, $id)
     {
-        return 'oke';
+        $data = [
+            'data' => $products->all()->find($id),
+            'title' => 'Produk'
+        ];
+        return view('products.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductsRequest $request, Products $products)
+    public function update(UpdateProductsRequest $request, Products $products, $id)
     {
-        //
+        $name = $request->name;
+        $oldImg = $request->oldImg;
+        $price = $request->price;
+        $description = $request->description;
+        $product = Products::find($id);
+        if ($request->file('photo')) {
+            if ($oldImg !== 'default.jpg') {
+                Storage::delete('public/products-img/' . $oldImg);
+            }
+            $photo = $request->file('photo')->store('public/products-img');
+            $data = ['name' => $name, 'price' => $price, 'img' => str_replace('public/products-img/', '', $photo), 'description' => $description];
+            $product->update($data);
+        } else {
+            $product->update(['name' => $name, 'price' => $price, 'img' => $oldImg, 'description' => $description]);
+        }
+        return redirect()->route('products.index')->with('success', "Produk $name berhasil diubah");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Products $products)
+    public function destroy(Products $products, $id)
     {
-        //
+        $img = $products->all()->find($id)->img;
+        if ($img !== 'default.jpg') {
+            Storage::delete('public/products-img/' . $img);
+        }
+        $products->destroy($id);
+        // return redirect()->route('products.index')->with('success', "Produk berhasil dihapus");
     }
     public function check(Request $request)
     {
@@ -81,6 +112,16 @@ class ProductsController extends Controller
         $validate = $request->validate([
             $form => $args
         ]);
+        return response()->json(['success' => true]);
+    }
+    public function checkfile(Request $request)
+    {
+        $form = $request->file;
+        $rules = [
+            'file' => 'required|file|mimes:jpeg,png,jpg,gif|max:1024',
+        ];
+        // $args = $form == 'name' ? 'required' : 'required|integer';
+        $validate = $request->validate($rules);
         return response()->json(['success' => true]);
     }
 }
