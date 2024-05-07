@@ -10,7 +10,7 @@
                     <div class="col-8">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama Produk</label>
-                            <input type="text" class="form-control" onmouseover="validate('name')"
+                            <input type="text" class="form-control" onkeyup="validate('name')"
                                 value="{{ $data->name }}" id="name" name="name" placeholder="Nama Produk">
                             <div class="valid-feedback">
                                 Input berhasil divalidasi.
@@ -24,7 +24,7 @@
                         <div class="mb-3">
                             <label for="price" class="form-label">Harga Produk</label>
                             <input type="text" class="form-control" id="price" value="{{ $data->price }}"
-                                onmouseover="validate('price')" name="price" placeholder="Harga Produk">
+                                onkeyup="validate('price')" name="price" placeholder="Harga Produk">
                             <div class="valid-feedback">
                                 Input berhasil divalidasi.
                             </div>
@@ -67,10 +67,10 @@
     @push('script')
         <script>
             function valid() {
-                let name = $('input[name="name"]').hasClass("is-valid");
-                let price = $('input[name="price"]').hasClass("is-valid");
+                let name = !$('input[name="name"]').hasClass("is-invalid");
+                let price = !$('input[name="price"]').hasClass("is-invalid");
                 let photo = !$('input[name="photo"]').hasClass("is-invalid");
-                if (name && price || photo) {
+                if (name && price && photo) {
                     $("button").removeClass("disabled");
                 } else {
                     $("button").addClass("disabled");

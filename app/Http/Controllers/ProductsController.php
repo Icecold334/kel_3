@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
@@ -17,6 +18,7 @@ class ProductsController extends Controller
     {
         $data = [
             'products' => Products::all(),
+            'user' => Auth::user(),
             'title' => 'Produk'
         ];
         return view('products.index', $data);
@@ -28,7 +30,8 @@ class ProductsController extends Controller
     public function create()
     {
         $data = [
-            'title' => 'Produk'
+            'title' => 'Produk',
+            'user' => Auth::user()
         ];
         return view('products.add', $data);
     }
@@ -53,7 +56,8 @@ class ProductsController extends Controller
     {
         $data = [
             'title' => $products->all()->find($id)->name,
-            'data' => $products->all()->find($id)
+            'data' => $products->all()->find($id),
+            'user' => Auth::user()
         ];
         return view('products.show', $data);
     }
@@ -65,7 +69,8 @@ class ProductsController extends Controller
     {
         $data = [
             'data' => $products->all()->find($id),
-            'title' => 'Produk'
+            'title' => 'Produk',
+            'user' => Auth::user()
         ];
         return view('products.edit', $data);
     }

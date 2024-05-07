@@ -13,11 +13,11 @@ class HomeController extends Controller
         ];
         return view('home.index', $data);
     }
-    public function coba()
+    public function about()
     {
         $data = [
-            'title' => 'Coba'
+            'title' => 'About'
         ];
-        return view('coba/index');
+        return view('about.index', $data);
     }
 }
