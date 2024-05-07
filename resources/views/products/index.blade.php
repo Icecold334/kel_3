@@ -18,7 +18,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $product->name }}</td>
                     <td>{{ Str::limit($product->description, 20) ?? '-' }}</td>
-                    <td>{{ $product->price }}</td>
+                    <td>Rp {{ $product->price }}</td>
                     <td>
                         <a href="/products/{{ $product->id }}" class="badge btn bg-primary px-1"><i
                                 class="fa-solid fa-circle-info"></i></a>
